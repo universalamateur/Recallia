@@ -12,13 +12,26 @@ Codex/ChatGPT-style model use should happen through a server-side API route wrap
 
 ## Core Demo Story
 
-Seeded memories:
+Seeded memories include mutually exclusive residences, overlapping cars, and work or learning periods:
 
 | Title | Date range | Tags |
 |---|---|---|
+| Lived in Hamburg | 1990-1994 | place, home |
+| Apprenticed at print shop | 1991-1994 | work, learning |
 | Owned beige VW Golf 1 | 1992-2000 | car, Germany, personal artifact |
 | Lived in Frankfurt | 1995-1999 | place, home |
 | Attended evening school | 1996-1998 | education |
+| Worked at logistics warehouse | 1997-2001 | work |
+| Owned red Opel Corsa | 1998-2002 | car, Germany, personal artifact |
+| Completed software training | 1999-2000 | education, learning |
+| Lived in Munich | 2000-2004 | place, home |
+| Worked first IT support job | 2000-2004 | work, technology |
+| Owned silver BMW 3 Series | 2002-2006 | car, Germany, personal artifact |
+| Lived in Berlin | 2005-2009 | place, home |
+| Owned blue Audi A4 | 2007-2011 | car, Germany, personal artifact |
+| Freelance web projects | 2009-2012 | work, technology |
+| Lived in Zurich | 2010-2013 | place, home |
+| Weekend product course | 2011-2012 | education, learning |
 
 Live demo memory:
 
@@ -26,18 +39,24 @@ Live demo memory:
 
 When the user clicks **Ask Recallia AI**, the app should suggest:
 
-- Possible date range: 1996-1999.
-- Reason: overlaps with living in Frankfurt, owning the Golf, and attending evening school.
-- Suggested links: Lived in Frankfurt, Owned beige VW Golf 1, Attended evening school.
-- Clarifying question: Was this during your evening school period or before that?
+- Possible date range: 1995-1999.
+- Reason: overlaps with living in Frankfurt and owning the beige Golf.
+- Suggested links: Lived in Frankfurt, Owned beige VW Golf 1.
+- Clarifying question: ask which residence, car, work, or learning memories were true at the same time.
+
+When the user selects **Attended evening school** and **Worked at logistics warehouse** as additional parallel facts, the app should refine the pending suggestion to:
+
+- Possible date range: 1997-1998.
+- Reason: living in Frankfurt, owning the Golf, attending evening school, and working logistics all overlap only in that window.
+- Suggested links: Lived in Frankfurt, Owned beige VW Golf 1, Attended evening school, Worked at logistics warehouse.
 
 The user confirms, saves, and sees the memory inserted into the timeline.
 
 ## Demo Wow Moment
 
-When the AI suggestion appears, the timeline should visibly connect the draft memory to the three relevant seeded memories:
+When the AI suggestion appears, the timeline should visibly connect the draft memory to the relevant seeded memories:
 
-- Highlight the suggested 1996-1999 date range.
+- Highlight the suggested date range, then update it after refinement.
 - Highlight the linked memory cards.
 - Show a before/after state when the user accepts the suggestion.
 
@@ -133,7 +152,7 @@ Required:
 - Seed demo memories on first run.
 - Persist newly created memories.
 - Persist AI run metadata.
-- Show AI run history for the selected memory.
+- Show the active AI run trace while the suggestion is pending.
 - Filter every memory and AI run read/write by the authenticated demo user.
 
 Tests:
@@ -158,8 +177,9 @@ Main authenticated view.
 
 Show:
 
-- Timeline of memories sorted by start date.
-- Memory cards.
+- Vertical timeline rail with memories placed by start date.
+- Memory cards stretched by date range with a minimum visible size.
+- Parallel memories displayed in overlapping side lanes.
 - Date/date range.
 - Description preview.
 - Tags.
@@ -181,8 +201,9 @@ Fields:
 
 Actions:
 
-- Save Draft.
 - Ask Recallia AI.
+
+Clicking **Ask Recallia AI** persists or reuses the draft memory before creating the AI run.
 
 ### AI Suggestion Panel
 
@@ -198,6 +219,7 @@ After clicking **Ask Recallia AI**, show:
 
 Actions:
 
+- Refine suggestion by selecting which linked memories were true at the same time.
 - Accept suggestions.
 - Edit manually.
 - Reject suggestions.
@@ -252,6 +274,7 @@ Rules:
 - Do not invent facts.
 - Use only the provided draft memory and existing memories.
 - Suggest date ranges only when supported by overlaps.
+- Ask about likely residence, car, work, or learning memories when several overlaps are possible.
 - Prefer asking a clarifying question when uncertain.
 - Return structured JSON only.
 
@@ -283,7 +306,7 @@ Implement at least these tests:
 - AI mutation: asking AI creates an `AiRun` but does not update dates or links until Accept.
 - Accept/reject/edit: accept applies suggestions, reject records `status: "rejected"` without applying them, and edit records `status: "accepted_with_edits"`.
 - Timeline: memories render in chronological order; missing dates sort after dated memories; same start dates sort by `createdAt`; date ranges sort by `startDate`; newly accepted memory appears in the suggested date range.
-- Browser smoke: login, see seeded memories, create the Frank memory, ask AI, see the 1996-1999 range and three highlighted links, accept, reload, confirm persisted timeline and AI trace.
+- Browser smoke: login, see seeded memories, click Add Memory, see the prefilled Frank form, ask AI, see the broad 1995-1999 range, refine with additional parallel facts to 1997-1998, accept, reload, and confirm the memory persists while the sidebar returns to Add Memory only.
 - Boundary: browser code never imports or calls the OpenAI adapter directly.
 
 ## MVP Non-Goals

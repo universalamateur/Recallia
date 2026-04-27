@@ -1,0 +1,32 @@
+{
+  "name": "recallia",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "data:reset": "node scripts/reset-data.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "1.11.0",
+    "next": "16.2.4",
+    "openai": "6.34.0",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
+    "server-only": "0.0.1",
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.59.1",
+    "@types/node": "25.6.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.2.4",
+    "typescript": "6.0.3",
+    "vitest": "4.1.5"
+  }
+}
