@@ -81,12 +81,20 @@ The AI trace is shown collapsed while reviewing a pending suggestion. After acce
 - Vitest unit/integration tests.
 - Playwright browser smoke test for the deterministic mock-mode demo path.
 
-## Project Docs
+## Documentation Map
 
-- [SPEC.md](SPEC.md): MVP product contract, data model, AI safety, and non-goals.
-- [SPEC-CODEX-SDK-V2.md](SPEC-CODEX-SDK-V2.md): implementation spec for the Codex SDK adapter swap.
-- [AGENTS.md](AGENTS.md): agent instructions and design principles.
-- [PLAN.md](PLAN.md): implemented MVP status and acceptance checklist.
+Current demo contract:
+
+- [SPEC.md](SPEC.md): implemented MVP product contract, data model, AI safety, and non-goals.
+- [SPEC-CODEX-SDK-V2.md](SPEC-CODEX-SDK-V2.md): implemented Codex SDK adapter contract.
+- [DEMO-SCRIPT.md](DEMO-SCRIPT.md): short recording script for the OpenAI demo.
+- [PLAN.md](PLAN.md): final demo path, acceptance checklist, and verification commands.
+- [AGENTS.md](AGENTS.md): agent instructions, source-of-truth order, and design principles.
+
+Future production planning:
+
+- [ROADMAP.md](ROADMAP.md): phased path from the OpenAI demo baseline to production MVP, database decision, self-hosted multi-user, and SaaS readiness.
+- [SPEC-PRODUCTION-MVP.md](SPEC-PRODUCTION-MVP.md): future production MVP contract. It does not override the current demo `SPEC.md` until production work starts.
 
 ## Known MVP Limits
 

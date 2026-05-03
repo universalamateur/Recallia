@@ -2,7 +2,7 @@
 
 Status: future-facing planning document.
 
-This spec describes the first production MVP after the current OpenAI demo path is adjusted in a separate development session. It does not replace the current demo `SPEC.md` until that demo work is complete and the production MVP milestone starts.
+This spec describes the first production MVP after the current OpenAI demo handoff is complete. It does not replace the current demo [SPEC.md](SPEC.md) until production-MVP work explicitly starts.
 
 ## Product Summary
 
@@ -52,7 +52,7 @@ The core product loop remains:
 7. Only accepted or edited suggestions mutate timeline dates and links.
 8. Memory and AI run metadata persist.
 
-The production default should not depend on the Frank/Frankfurt/Golf seed data. Demo data should move to a separate demo path or branch after the next demo adjustment.
+The production default should not depend on the Frank/Frankfurt/Golf seed data. Before production-MVP work starts, demo data should either stay in an explicit demo mode/path or move to a separate demo branch or seed command.
 
 ## Authentication
 
@@ -225,9 +225,9 @@ Not required in the first production MVP:
 
 ## Demo Mode
 
-The current Frank/Frankfurt/Golf demo flow remains part of the OpenAI application/demo work until the next demo adjustment is complete.
+The current Frank/Frankfurt/Golf demo flow remains the OpenAI application/demo baseline until the demo handoff is complete.
 
-After that:
+When production-MVP work starts:
 
 - Demo seed data should not be production default data.
 - Demo data should live in a separate demo branch, demo mode, or explicit seed command.

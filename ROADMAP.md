@@ -1,8 +1,8 @@
 # Recallia Roadmap
 
-Status: future-facing roadmap.
+Status: future-facing roadmap from the current OpenAI demo baseline.
 
-This roadmap starts after the next demo adjustment is completed in a separate development session. The current interview demo remains the active app baseline until that work is done.
+The current interview demo remains the active app baseline. Production work should start from this roadmap only after the OpenAI demo handoff is complete, so future hardening does not accidentally change the recorded demo contract.
 
 ## Roadmap Principle
 
@@ -10,22 +10,22 @@ Single tenant now, multi-tenant later.
 
 The first production MVP should harden the current loop instead of expanding the product. JSON remains the storage engine for the first self-hosted version. The database decision is a roadmap gate before multi-user self-hosted or SaaS work begins.
 
-## Phase 0 — Demo Adjustment Before Production MVP
+## Phase 0 — OpenAI Demo Baseline
 
 Goal:
 
-Finish the requested OpenAI demo adjustment and keep it separate from production-MVP hardening.
+Keep the implemented OpenAI demo stable and separate from production-MVP hardening.
 
-Expected output:
+Current output:
 
-- Updated demo flow.
-- Updated demo tests.
-- Clear branch or mode decision for demo data.
-- Current `SPEC.md`, `PLAN.md`, and `README.md` still describe the demo accurately.
+- `SPEC.md`, `SPEC-CODEX-SDK-V2.md`, `PLAN.md`, and `README.md` describe the current demo accurately.
+- The Codex SDK real-mode path is available for the first AI suggestion.
+- The mock-mode Playwright path remains deterministic for regression coverage.
+- Demo data remains explicit and synthetic.
 
 Exit criteria:
 
-- Demo is ready for OpenAI/application use.
+- Demo is recorded or otherwise accepted for OpenAI/application use.
 - Production-MVP docs remain future-facing and do not conflict with the demo branch.
 
 ## Phase 1 — Production MVP Foundation
@@ -201,8 +201,8 @@ Use these as initial GitLab issue titles.
 
 ### Phase 0
 
-- Update OpenAI demo flow before production-MVP work.
-- Decide final location for demo seed data.
+- Record or hand off the current OpenAI demo.
+- Decide final long-term location for demo seed data before production-MVP work starts.
 
 ### Phase 1
 
@@ -255,4 +255,3 @@ Use these as initial GitLab issue titles.
 3. Raw AI trace retention window.
 4. Whether to actively lock/refuse multiple writers or only document single-process use.
 5. Exact handoff point from demo branch to production-MVP branch.
-

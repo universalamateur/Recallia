@@ -1,5 +1,9 @@
 # Recallia MVP Spec
 
+Status: implemented OpenAI demo contract.
+
+This file describes the current demo app. Future production hardening is tracked separately in [ROADMAP.md](ROADMAP.md) and [SPEC-PRODUCTION-MVP.md](SPEC-PRODUCTION-MVP.md); those files do not override this demo contract until production-MVP work explicitly starts.
+
 ## Product Summary
 
 Recallia is a personal memory system that helps users capture life memories, place them on a timeline, and use AI to suggest relationships between memories.

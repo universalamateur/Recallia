@@ -18,10 +18,13 @@ These are filters, not aspirations. When in doubt, remove.
 
 - [SPEC.md](SPEC.md) is the product contract: MVP requirements, data model, demo story, AI safety, and non-goals.
 - [SPEC-CODEX-SDK-V2.md](SPEC-CODEX-SDK-V2.md) is the tracked adapter-specific implementation contract for the implemented Codex SDK adapter.
+- [DEMO-SCRIPT.md](DEMO-SCRIPT.md) is the short recording script for the OpenAI demo.
 - [README.md](README.md) is repo orientation and local usage.
-- [PLAN.md](PLAN.md) is build order and acceptance criteria.
+- [PLAN.md](PLAN.md) is the final demo path, verification checklist, and acceptance criteria.
+- [ROADMAP.md](ROADMAP.md) is the future-facing sequence after the OpenAI demo baseline.
+- [SPEC-PRODUCTION-MVP.md](SPEC-PRODUCTION-MVP.md) is the future production MVP contract.
 
-When files conflict, follow [SPEC.md](SPEC.md) for product behavior, [SPEC-CODEX-SDK-V2.md](SPEC-CODEX-SDK-V2.md) for Codex adapter implementation, and this file for agent behavior.
+When files conflict, follow [SPEC.md](SPEC.md) for current demo product behavior, [SPEC-CODEX-SDK-V2.md](SPEC-CODEX-SDK-V2.md) for current Codex adapter behavior, [DEMO-SCRIPT.md](DEMO-SCRIPT.md) for recording narration, and this file for agent behavior. [ROADMAP.md](ROADMAP.md) and [SPEC-PRODUCTION-MVP.md](SPEC-PRODUCTION-MVP.md) are planning inputs only; they do not override the current demo until production-MVP work explicitly starts.
 
 ## Mission
 

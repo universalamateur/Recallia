@@ -2,7 +2,9 @@
 
 ## Status
 
-Implemented MVP and Codex SDK adapter. This file is now a final status checklist, not the active work queue.
+Implemented MVP and Codex SDK adapter. This file is now a final status checklist, not the active work queue. Future work is tracked in [ROADMAP.md](ROADMAP.md) and [SPEC-PRODUCTION-MVP.md](SPEC-PRODUCTION-MVP.md).
+
+Use [DEMO-SCRIPT.md](DEMO-SCRIPT.md) for the short recording narration.
 
 ## Final Demo Path
 
@@ -41,7 +43,7 @@ Implemented MVP and Codex SDK adapter. This file is now a final status checklist
 - [x] After acceptance, the sidebar returns to Add Memory only and AI highlights disappear.
 - [x] Timeline ordering handles missing dates, approximate dates, same start dates, and date ranges.
 - [x] `npm run data:reset` clears local runtime data and default Codex scratch/session state.
-- [x] README explains setup, tests, demo credentials, AI mode, reset, and e2e constraints.
+- [x] README explains setup, tests, demo credentials, AI mode, reset, e2e constraints, demo script, and the complete documentation map.
 
 ## Final Verification
 
