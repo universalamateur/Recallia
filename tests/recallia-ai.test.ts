@@ -155,7 +155,7 @@ describe("Recallia AI adapters and validation", () => {
     expect(validated.ignoredLinkedMemoryIds).toEqual(["secret-memory-id"]);
   });
 
-  it("keeps browser components away from the OpenAI adapter", async () => {
+  it("keeps browser components away from the Codex SDK adapter", async () => {
     const files = await sourceFiles(join(process.cwd(), "src"));
     const clientFiles = await Promise.all(
       files.map(async (file) => ({
@@ -167,9 +167,9 @@ describe("Recallia AI adapters and validation", () => {
     for (const { file, source } of clientFiles.filter((entry) =>
       entry.source.startsWith("\"use client\"")
     )) {
-      expect(source, file).not.toContain("recallia-ai-openai");
-      expect(source, file).not.toContain("from \"openai\"");
-      expect(source, file).not.toContain("new OpenAI");
+      expect(source, file).not.toContain("recallia-ai-codex");
+      expect(source, file).not.toContain("from \"@openai/codex-sdk\"");
+      expect(source, file).not.toContain("new Codex");
     }
 
     const composer = await readFile(

@@ -4,7 +4,7 @@ import { randomUUID } from "node:crypto";
 import type { AdapterMode, AiRun, Memory, MemoryPlacementSuggestion } from "@/lib/types";
 import { validateSuggestionLinkedMemoryIds } from "@/lib/recallia-ai-schema";
 import { MockRecalliaAiAdapter } from "@/lib/recallia-ai-mock";
-import { OpenAIRecalliaAiAdapter } from "@/lib/recallia-ai-openai";
+import { CodexSdkRecalliaAiAdapter } from "@/lib/recallia-ai-codex";
 import {
   createAiInputSnapshot,
   createExistingMemorySnapshot
@@ -40,11 +40,11 @@ async function runConfiguredAdapter(input: RecalliaAiInput) {
     try {
       return {
         adapterMode: "codex" as const,
-        suggestion: await new OpenAIRecalliaAiAdapter().suggestMemoryPlacement(input)
+        suggestion: await new CodexSdkRecalliaAiAdapter().suggestMemoryPlacement(input)
       };
     } catch (error) {
       const fallbackReason =
-        error instanceof Error ? error.message : "OpenAI adapter failed.";
+        error instanceof Error ? error.message : "Codex SDK adapter failed.";
 
       return {
         adapterMode: "mock" as const,

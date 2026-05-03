@@ -698,13 +698,13 @@ h1 {
 }
 
 .timeline-item {
+  position: relative;
   z-index: 1;
   min-height: 112px;
   padding: 3px 0;
 }
 
-.timeline-item:hover,
-.timeline-item:focus-within {
+.timeline-item:hover {
   z-index: 20;
 }
 
@@ -720,12 +720,25 @@ h1 {
   transform-origin: center;
 }
 
-.timeline-item:hover .memory-card-timeline,
-.timeline-item:focus-within .memory-card-timeline {
-  overflow: visible;
+.timeline-item:hover .memory-card-timeline {
+  position: absolute;
+  top: 3px;
+  z-index: 30;
+  width: clamp(250px, 30vw, 320px);
+  height: auto;
+  max-height: min(540px, calc(100vh - 120px));
+  overflow: auto;
   border-color: var(--accent);
   box-shadow: 0 18px 45px rgba(31, 41, 51, 0.18);
-  transform: scale(1.04);
+  transform: translateY(-4px);
+}
+
+.timeline-item[data-timeline-side="left"]:hover .memory-card-timeline {
+  left: 0;
+}
+
+.timeline-item[data-timeline-side="right"]:hover .memory-card-timeline {
+  right: 0;
 }
 
 .memory-card-timeline .memory-card-header {
@@ -755,6 +768,12 @@ h1 {
   line-height: 1.35;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+}
+
+.timeline-item:hover .memory-card-timeline .memory-description {
+  display: block;
+  overflow: visible;
+  -webkit-line-clamp: unset;
 }
 
 .memory-card-timeline .memory-meta,

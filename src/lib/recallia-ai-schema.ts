@@ -1,12 +1,14 @@
-import { z } from "zod";
+import { z } from "zod/v3";
 import type { Memory, MemoryPlacementSuggestion } from "@/lib/types";
 
-const ISODateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
+function isoDateSchema() {
+  return z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
+}
 
 export const MemoryPlacementSuggestionWireSchema = z
   .object({
-    suggestedStartDate: ISODateSchema.nullable().optional(),
-    suggestedEndDate: ISODateSchema.nullable().optional(),
+    suggestedStartDate: isoDateSchema().nullable().optional(),
+    suggestedEndDate: isoDateSchema().nullable().optional(),
     dateConfidence: z.enum(["exact", "approximate", "unknown"]),
     suggestedLinkedMemoryIds: z.array(z.string()),
     reasoning: z.string().trim().min(1),

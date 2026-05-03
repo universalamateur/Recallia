@@ -207,6 +207,7 @@ export function TimelineRail({
         {positioned.items.map((item) => (
           <div
             className="timeline-item"
+            data-timeline-side={item.column < RAIL_COLUMN ? "left" : "right"}
             key={item.memory.id}
             style={{
               gridColumn: item.column,

@@ -17,10 +17,11 @@ These are filters, not aspirations. When in doubt, remove.
 ## Source Of Truth
 
 - [SPEC.md](SPEC.md) is the product contract: MVP requirements, data model, demo story, AI safety, and non-goals.
+- [SPEC-CODEX-SDK-V2.md](SPEC-CODEX-SDK-V2.md) is the tracked adapter-specific implementation contract for the implemented Codex SDK adapter.
 - [README.md](README.md) is repo orientation and local usage.
 - [PLAN.md](PLAN.md) is build order and acceptance criteria.
 
-When files conflict, follow [SPEC.md](SPEC.md) for product behavior and this file for agent behavior.
+When files conflict, follow [SPEC.md](SPEC.md) for product behavior, [SPEC-CODEX-SDK-V2.md](SPEC-CODEX-SDK-V2.md) for Codex adapter implementation, and this file for agent behavior.
 
 ## Mission
 
@@ -32,7 +33,7 @@ The demo must show one complete loop: login, seeded timeline, add uncertain memo
 
 ## Stack Preference
 
-Prefer Next.js + TypeScript for the app so the OpenAI API route wrapper can run server-side.
+Prefer Next.js + TypeScript for the app so the Codex SDK route wrapper can run server-side.
 
 Use file-backed local JSON persistence for the MVP. Do not add SQLite, Prisma, or lowdb unless JSON proves insufficient.
 
@@ -48,9 +49,12 @@ Top risks:
 Required mitigations:
 
 - AI suggests only; user confirms before changes affect the timeline.
-- OpenAI input is scoped to the draft memory and existing memory summaries.
+- Codex/model input is scoped to the draft memory and existing memory summaries.
 - Store AI run metadata: input snapshot, existing memory snapshot, response, status, adapter mode, created timestamp.
 - Show an "AI trace" section in the UI, collapsed by default.
+- Real Codex mode is server-side only, uses synthetic demo data only, and sends scoped memory text to OpenAI.
+- Run Codex with read-only sandboxing, never-approval, disabled web search, and a private scratch directory outside the repo and runtime data.
+- `npm run data:reset` clears default runtime data and default Codex scratch/session state; custom `RECALLIA_CODEX_WORKING_DIRECTORY` paths are operator-managed.
 - Do not commit secrets, tokens, `.env`, private notes, or customer data.
 
 ## Implementation Rules
@@ -62,7 +66,7 @@ Required mitigations:
 - Add comments only where they explain a non-obvious decision.
 - Use deterministic seed data so the Loom demo is repeatable.
 - Tests should exercise behavior, not implementation details.
-- Implement the real path as a server-side OpenAI Responses API wrapper when configured; keep deterministic mock fallback as the default.
+- Implement the real path as a server-side Codex SDK adapter when configured; keep deterministic mock fallback as the default.
 
 ## Demo Story
 

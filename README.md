@@ -34,25 +34,31 @@ npm run data:reset
 
 Run `npm run test:e2e` with no existing `next dev` server for this repo. The Playwright smoke test starts its own isolated server and uses `data/e2e-recallia.json`.
 
-`npm run data:reset` removes the default local runtime file at `data/recallia.json`. Runtime JSON files are ignored by git.
+`npm run data:reset` removes the default local runtime file at `data/recallia.json` and the default Codex scratch directory under the operating system temp directory. Runtime JSON files and scratch state are ignored by git.
 
 ## AI Mode
 
-Mock mode is the default and is deterministic for the Loom demo.
+Mock mode is the default for tests and offline demos. For the Codex SDK v2 recording, the product walkthrough should run the first **Ask Recallia AI** step in real Codex mode, then keep refinement deterministic in the app.
 
-Real OpenAI mode is server-side only:
+Real mode is server-side only and uses the Codex SDK adapter behind `POST /api/ai/suggest`:
 
 ```bash
 RECALLIA_AI_MODE=codex OPENAI_API_KEY=... npm run dev
 ```
 
-Optional:
+Optional overrides:
 
 ```bash
-RECALLIA_OPENAI_MODEL=gpt-5.5
+RECALLIA_CODEX_MODEL=<codex-model>
+RECALLIA_CODEX_WORKING_DIRECTORY=<private-scratch-directory>
+RECALLIA_CODEX_PATH=<optional-path-to-codex-binary>
 ```
 
 The browser calls `POST /api/ai/suggest`; only the server route calls the AI adapter. AI output is validated and stored as an `AiRun` trace. Suggestions do not mutate timeline dates or links until the user accepts or edits them. Pending suggestions can be refined by selecting which seeded residence, car, work, and learning memories were true at the same time.
+
+Real Codex calls wait up to 60 seconds before falling back to deterministic mock mode so the recorded demo can tolerate first-run SDK startup latency. Successful SDK calls persist `adapterMode: "codex"`. Any timeout or SDK error persists `adapterMode: "mock"` with a visible `fallbackReason`.
+
+The real adapter starts Codex with `sandboxMode: "read-only"`, `approvalPolicy: "never"`, `webSearchMode: "disabled"`, and a scratch working directory outside the repo and `data/`. By default that scratch directory is `<os-temp>/recallia-codex-scratch`; the adapter creates private `home`, `codex-home`, and `tmp` directories there and passes only a minimal subprocess environment. Custom `RECALLIA_CODEX_WORKING_DIRECTORY` values are operator-managed, are rejected if they point inside the repo or runtime data, and are not removed by `npm run data:reset`.
 
 ## Demo Flow
 
@@ -71,13 +77,14 @@ The AI trace is shown collapsed while reviewing a pending suggestion. After acce
 
 - Next.js App Router + TypeScript.
 - File-backed local JSON persistence.
-- Server-side OpenAI Responses API adapter with deterministic mock fallback.
+- Server-side Codex SDK adapter with deterministic mock fallback.
 - Vitest unit/integration tests.
-- Playwright browser smoke test for the Loom path.
+- Playwright browser smoke test for the deterministic mock-mode demo path.
 
 ## Project Docs
 
 - [SPEC.md](SPEC.md): MVP product contract, data model, AI safety, and non-goals.
+- [SPEC-CODEX-SDK-V2.md](SPEC-CODEX-SDK-V2.md): implementation spec for the Codex SDK adapter swap.
 - [AGENTS.md](AGENTS.md): agent instructions and design principles.
 - [PLAN.md](PLAN.md): implemented MVP status and acceptance checklist.
 
@@ -85,5 +92,6 @@ The AI trace is shown collapsed while reviewing a pending suggestion. After acce
 
 - Demo auth is local gating only, not production authentication.
 - Local JSON persistence is for the demo only.
-- No uploads, cloud storage, graph canvas, social features, or third-party integrations beyond optional OpenAI API mode.
+- No uploads, cloud storage, graph canvas, social features, or third-party integrations beyond optional server-side Codex SDK model mode.
 - Use deterministic synthetic demo data only.
+- Real Codex mode sends the scoped draft memory and seeded memory summaries to OpenAI; do not use real personal, customer, health, financial, minor-related, or sensitive relationship data.
