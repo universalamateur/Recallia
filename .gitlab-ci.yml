@@ -1,0 +1,29 @@
+stages:
+  - test
+
+variables:
+  DUALHOST_ROLE: "canonical"
+  NEXT_TELEMETRY_DISABLED: "1"
+  NPM_CONFIG_CACHE: "$CI_PROJECT_DIR/.npm"
+  RECALLIA_AI_MODE: "mock"
+
+cache:
+  key:
+    files:
+      - package-lock.json
+  paths:
+    - .npm/
+
+verify:
+  stage: test
+  image: node:22-bookworm
+  interruptible: true
+  timeout: 20m
+  script:
+    - npm ci
+    - npx playwright install --with-deps chromium
+    - npm run ci
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_COMMIT_TAG'
