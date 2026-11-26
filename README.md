@@ -1,5 +1,7 @@
 # Recallia
 
+[Lead repository on GitLab](https://gitlab.com/universalamateur1/Recallia)
+
 ![Recallia logo](logo.png)
 
 Recallia is a local demo memory system that helps turn scattered life events into a connected timeline with AI-assisted placement.
